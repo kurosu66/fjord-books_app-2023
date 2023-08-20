@@ -22,6 +22,7 @@ class ReportsController < ApplicationController
     @report = current_user.reports.new(report_params)
 
     if @report.save
+      @report.create_mentions(@report)
       redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
     else
       render :new, status: :unprocessable_entity
@@ -29,7 +30,16 @@ class ReportsController < ApplicationController
   end
 
   def update
+    before_update_mentions = @report.find_mentioned_reports(@report)
     if @report.update(report_params)
+      after_update_mentions = @report.find_mentioned_reports(@report)
+      if before_update_mentions.length <= after_update_mentions.length
+        @report.create_mentions(@report)
+      else
+        deleted_mention_ids = before_update_mentions - after_update_mentions
+        @report.destroy_mentions(deleted_mention_ids, @report)
+      end
+
       redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
     else
       render :edit, status: :unprocessable_entity
