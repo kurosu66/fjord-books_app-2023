@@ -6,12 +6,12 @@
 
 <div>
   <% if @mentioned_reports.present? %>
-    この記事は以下の記事からリンクされています
+    この日報は以下の日報からリンクされています
     <ul>
       <% @mentioned_reports.each do |mentioned_report| %>
-        <li>
-          <small><%= link_to mentioned_report.title, report_path(mentioned_report) %></small>
-        </li>
+          <li>
+            <%= link_to mentioned_report.title, report_path(mentioned_report) %>
+          </li>
        <% end %>
     </ul>
   <% end %>
