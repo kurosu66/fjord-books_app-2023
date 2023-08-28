@@ -33,14 +33,7 @@ class ReportsController < ApplicationController
   def update
     before_update_mentions = @report.find_mentioned_reports(@report)
     if @report.update(report_params)
-      after_update_mentions = @report.find_mentioned_reports(@report)
-      if before_update_mentions.length <= after_update_mentions.length
-        @report.create_mentions(@report)
-      else
-        deleted_mention_ids = before_update_mentions - after_update_mentions
-        @report.destroy_mentions(deleted_mention_ids, @report)
-      end
-
+      @report.update_mentions(before_update_mentions, @report)
       redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
     else
       render :edit, status: :unprocessable_entity

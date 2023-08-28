@@ -34,6 +34,16 @@ class Report < ApplicationRecord
     end
   end
 
+  def update_mentions(before_update_mentions, report)
+    after_update_mentions = find_mentioned_reports(report)
+    if before_update_mentions.length <= after_update_mentions.length
+      report.create_mentions(report)
+    else
+      deleted_mention_ids = before_update_mentions - after_update_mentions
+      report.destroy_mentions(deleted_mention_ids, report)
+    end
+  end
+
   def destroy_mentions(deleted_mention_ids, report)
     deleted_mention_ids.each do |deleted_mention_id|
       mention = Mention.find_by(mentioning_id: report.id, mentioned_id: deleted_mention_id)
