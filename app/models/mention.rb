@@ -8,33 +8,15 @@ class Mention < ApplicationRecord
     scope: %i[mentioning_id mentioned_id]
   }
 
-  def self.create_mentions(report)
-    mentioned_report_ids = find_mentioned_reports(report)
-    mentioned_report_ids.each do |mentioned_report_id|
-      create(mentioning_id: report.id, mentioned_id: mentioned_report_id)
-    end
-  end
-
   def self.find_mentioned_reports(report)
-    report.content.scan(%r{(?<=reports/)(\d{1,})}).flatten
+    report.content.scan(%r{http:\/\/localhost:3000\/reports\/(\d+)}).flatten
   end
 
   def self.update_mentions(report)
-    existing_mentions = Mention.all.map { |mention| [mention.mentioning_id, mention.mentioned_id] }
+    active_mentionings = report.active_mentionings
+    active_mentionings.each(&:destroy)
 
-    mentioned_ids = find_mentioned_reports(report)
-    new_mentions = mentioned_ids.map { |mentioned_id| [report.id, mentioned_id.to_i] }
-
-    mentions_to_create = (new_mentions - existing_mentions).map do |mention|
-      {
-        mentioning_id: mention.first,
-        mentioned_id: mention.second
-      }
-    end
-
-    mentions_to_create.each { |mention| Mention.create(mention) }
-
-    destroy_mentions(report, existing_mentions, new_mentions) if mentions_to_create.blank?
+    Report.create_mentions(report)
   end
 
   def self.destroy_mentions(report, existing_mentions, new_mentions)

@@ -20,4 +20,11 @@ class Report < ApplicationRecord
   def created_on
     created_at.to_date
   end
+
+  def self.create_mentions(report)
+    mentioned_report_ids = Mention.find_mentioned_reports(report)
+    mentioned_report_ids.each do |mentioned_report_id|
+      Mention.create(mentioning_id: report.id, mentioned_id: mentioned_report_id)
+    end
+  end
 end

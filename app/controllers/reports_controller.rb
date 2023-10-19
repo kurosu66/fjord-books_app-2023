@@ -22,9 +22,9 @@ class ReportsController < ApplicationController
   def create
     @report = current_user.reports.new(report_params)
 
-    ApplicationRecord.transaction do
+    ActiveRecord::Base.transaction do
       if @report.save
-        Mention.create_mentions(@report)
+        Report.create_mentions(@report)
         redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
       else
         render :new, status: :unprocessable_entity
