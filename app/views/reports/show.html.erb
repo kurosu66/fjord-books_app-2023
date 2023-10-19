@@ -6,7 +6,7 @@
 
 <div>
   <% if @mentioned_reports.present? %>
-    この日報は以下の日報からリンクされています
+    <%= t('views.show.report_is_linked') %>
     <ul>
       <% @mentioned_reports.each do |mentioned_report| %>
           <li>

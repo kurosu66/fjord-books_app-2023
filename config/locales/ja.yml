@@ -202,6 +202,8 @@ ja:
       previous: '‹ 前'
       next: '次 ›'
       truncate: '…'
+    show:
+      report_is_linked: "この日報は以下の日報からリンクされています"
   controllers:
     common:
       notice_create: "%{name}が作成されました。"
