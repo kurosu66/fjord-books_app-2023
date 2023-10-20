@@ -9,7 +9,7 @@ class Mention < ApplicationRecord
   }
 
   def self.find_mentioned_reports(report)
-    report.content.scan(%r{http:\/\/localhost:3000\/reports\/(\d+)}).flatten
+    report.content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten
   end
 
   def self.update_mentions(report)
