@@ -21,10 +21,21 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  def self.create_mentions(report)
-    mentioned_report_ids = Mention.find_mentioned_reports(report)
-    mentioned_report_ids.each do |mentioned_report_id|
-      Mention.create(mentioning_id: report.id, mentioned_id: mentioned_report_id)
+  def find_mentioned_reports
+    content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten
+  end
+
+  def create_mentions
+    ActiveRecord::Base.transaction do
+      mentioned_report_ids = find_mentioned_reports
+      mentioned_report_ids.each do |mentioned_report_id|
+        Mention.create(mentioning_id: id, mentioned_id: mentioned_report_id) unless Mention.exists?(mentioning_id: id, mentioned_id: mentioned_report_id)
+      end
     end
+  end
+
+  def update_mentions
+    active_mentionings.destroy_all
+    create_mentions
   end
 end
