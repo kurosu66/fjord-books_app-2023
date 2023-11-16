@@ -26,11 +26,9 @@ class Report < ApplicationRecord
   end
 
   def create_mentions
-    ActiveRecord::Base.transaction do
-      mentioned_report_ids = find_mentioned_reports
-      mentioned_report_ids.each do |mentioned_report_id|
-        Mention.create(mentioning_id: id, mentioned_id: mentioned_report_id) unless Mention.exists?(mentioning_id: id, mentioned_id: mentioned_report_id)
-      end
+    mentioned_report_ids = find_mentioned_reports
+    mentioned_report_ids.each do |mentioned_report_id|
+      Mention.create(mentioning_id: id, mentioned_id: mentioned_report_id) unless Mention.exists?(mentioning_id: id, mentioned_id: mentioned_report_id)
     end
   end
 
