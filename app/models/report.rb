@@ -28,7 +28,7 @@ class Report < ApplicationRecord
   def create_mentions
     mentioned_report_ids = find_mentioned_reports
     mentioned_report_ids.each do |mentioned_report_id|
-      Mention.create(mentioning_id: id, mentioned_id: mentioned_report_id) unless Mention.exists?(mentioning_id: id, mentioned_id: mentioned_report_id)
+      active_mentionings.create(mentioned_id: mentioned_report_id) unless active_mentionings.exists?(mentioned_id: mentioned_report_id)
     end
   end
 
