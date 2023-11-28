@@ -28,12 +28,12 @@ class Report < ApplicationRecord
   def create_mentions
     mentioned_report_ids = find_mentioned_reports
     mentioned_report_ids.each do |mentioned_report_id|
-      active_mentionings.create(mentioned_id: mentioned_report_id) unless active_mentionings.exists?(mentioned_id: mentioned_report_id)
+      active_mentionings.create!(mentioned_id: mentioned_report_id) unless active_mentionings.exists?(mentioned_id: mentioned_report_id)
     end
   end
 
   def update_mentions
-    active_mentionings.destroy_all
+    active_mentionings.each(&:destroy!)
     create_mentions
   end
 end
