@@ -1,13 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  memo: MyText
-
-two:
-  title: MyString
-  memo: MyText
-
 harry_potter_book:
   title: ハリー・ポッター
   memo: 1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。
