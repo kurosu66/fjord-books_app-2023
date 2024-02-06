@@ -1,11 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+alice_report:
+  user: alice
+  title: Sinatraの勉強
+  content: 自分が聴いだのは近頃途中でおもにないうでし。
 
-one:
-  user: one
-  title: MyString
-  content: MyText
-
-two:
-  user: two
-  title: MyString
-  content: MyText
+bob_report:
+  user: bob
+  title: Aliceの日報が参考になりました。
+  content: 参考になった
