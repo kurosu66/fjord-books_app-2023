@@ -3,7 +3,7 @@
 require 'application_system_test_case'
 
 class ReportsTest < ApplicationSystemTestCase
-  fixtures :users,:reports
+  fixtures :users, :reports
 
   setup do
     @report = reports(:alice_report)
