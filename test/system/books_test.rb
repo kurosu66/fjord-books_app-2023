@@ -4,8 +4,6 @@ require 'application_system_test_case'
 require 'test_helper'
 
 class BooksTest < ApplicationSystemTestCase
-  fixtures :users, :books
-
   setup do
     @book = books(:harry_potter_book)
 
