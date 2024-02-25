@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'application_system_test_case'
-require 'test_helper'
 
 class BooksTest < ApplicationSystemTestCase
   setup do
@@ -17,15 +16,18 @@ class BooksTest < ApplicationSystemTestCase
   test 'visiting the index' do
     visit books_url
     assert_selector 'h1', text: '本の一覧'
+    assert_text 'ハリー・ポッター'
+    assert_text '1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。'
+    assert_text 'J・K・ローリング'
   end
 
   test 'should create book' do
     visit books_url
     click_on '本の新規作成'
 
-    fill_in 'タイトル', with: @book.title
-    fill_in 'メモ', with: @book.memo
-    fill_in '著者', with: @book.author
+    fill_in 'タイトル', with: 'ハリー・ポッター'
+    fill_in 'メモ', with: '1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。'
+    fill_in '著者', with: 'J・K・ローリング'
     click_on '登録する'
 
     assert_text '本が作成されました。'
@@ -54,5 +56,8 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'この本を削除', match: :first
 
     assert_text '本が削除されました。'
+    assert_no_text 'ハリー・ポッター'
+    assert_no_text '1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。'
+    assert_no_text 'J・K・ローリング'
   end
 end
