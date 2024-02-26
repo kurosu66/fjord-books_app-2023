@@ -3,7 +3,6 @@
 require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
-
   test '#editable?' do
     alice_report = reports(:alice_report)
 
