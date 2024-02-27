@@ -11,8 +11,9 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test '#created_on' do
-    report = reports(:alice_report)
-    assert_equal report.created_at.to_date, report.created_on
+    alice = users(:alice)
+    report = alice.reports.create!(title: 'alice_report', content: '自分が聴いだのは近頃途中でおもにないうでし。', created_at: '2024-02-27 21:00'.in_time_zone)
+    assert_equal '2024-02-27'.to_date, report.created_on
   end
 
   test '#save_mentions' do
