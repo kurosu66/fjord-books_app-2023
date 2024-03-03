@@ -50,5 +50,7 @@ class ReportsTest < ApplicationSystemTestCase
     click_on 'この日報を削除'
 
     assert_text '日報が削除されました。'
+    assert_no_text 'Sinatraの勉強'
+    assert_no_text '自分が聴いだのは近頃途中でおもにないうでし。'
   end
 end
