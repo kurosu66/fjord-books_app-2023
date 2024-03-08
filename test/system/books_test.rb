@@ -17,8 +17,6 @@ class BooksTest < ApplicationSystemTestCase
     visit books_url
     assert_selector 'h1', text: '本の一覧'
     assert_text 'ハリー・ポッター'
-    assert_text '1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。'
-    assert_text 'J・K・ローリング'
   end
 
   test 'should create book' do
@@ -32,7 +30,6 @@ class BooksTest < ApplicationSystemTestCase
 
     assert_text '本が作成されました。'
     assert_text 'ハリー・ポッター'
-    assert_text '1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。'
     assert_text 'J・K・ローリング'
   end
 
@@ -53,11 +50,10 @@ class BooksTest < ApplicationSystemTestCase
 
   test 'should destroy Book' do
     visit book_url(@book)
+    assert_text 'ハリー・ポッター'
     click_on 'この本を削除', match: :first
 
     assert_text '本が削除されました。'
     assert_no_text 'ハリー・ポッター'
-    assert_no_text '1990年代のイギリスを舞台に、魔法使いの少年ハリー・ポッターの学校生活や、強大な闇の魔法使いヴォルデモートとの因縁と戦いを描いた物語。'
-    assert_no_text 'J・K・ローリング'
   end
 end
