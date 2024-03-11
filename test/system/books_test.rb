@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class BooksTest < ApplicationSystemTestCase
   setup do
-    @book = books(:harry_potter_book)
+    @book = books(:harry_potter)
 
     visit root_url
     fill_in 'Eメール', with: 'alice@example.com'

@@ -4,14 +4,14 @@ require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
   test '#editable?' do
-    alice_report = reports(:alice_report)
+    alice_report = reports(:by_alice)
 
     assert alice_report.editable?(users(:alice))
     assert_not alice_report.editable?(users(:bob))
   end
 
   test '#created_on' do
-    report = reports(:alice_report)
+    report = reports(:by_alice)
     report.created_at = '2024-02-27 21:00'.in_time_zone
     assert_equal '2024-02-27 21:00'.to_date, report.created_on
   end
