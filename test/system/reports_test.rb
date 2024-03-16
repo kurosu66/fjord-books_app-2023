@@ -22,8 +22,8 @@ class ReportsTest < ApplicationSystemTestCase
     visit reports_url
     click_on '日報の新規作成'
 
-    fill_in 'タイトル', with: @report.title
-    fill_in '内容', with: @report.content
+    fill_in 'タイトル', with: 'Sinatraの勉強'
+    fill_in '内容', with: '自分が聴いだのは近頃途中でおもにないうでし。'
     click_on '登録する'
 
     assert_text '日報が作成されました。'
