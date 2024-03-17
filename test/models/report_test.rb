@@ -34,7 +34,6 @@ class ReportTest < ActiveSupport::TestCase
     carol_report = carol.reports.create!(title: 'carol_report', content: 'ほかでも単にして根ざしましないですますて。')
     bob_report.update!(title: 'updated_bob_report', content: "日報を更新します。http://localhost:3000/reports/#{alice_another_report.id} Carolの言及を追加 http://localhost:3000/reports/#{carol_report.id}")
 
-    assert_includes bob_report.mentioning_reports.reload, alice_another_report
-    assert_includes bob_report.mentioning_reports, carol_report
+    assert_equal [alice_another_report, carol_report], bob_report.mentioning_reports.reload
   end
 end
